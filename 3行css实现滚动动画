@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .app-container {
+      width: 600px;
+      height: 600px;
+      margin: 0 auto;
+      padding: 30px;
+      overflow-y: auto;
+    }
+    h1{
+      margin-bottom: 400px;
+    }
+    .view {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .block:nth-child(2n) {
+      margin-right: 0;
+    }
+
+    .block:nth-child(1) {
+      width: 300px;
+      background-color: aqua;
+    }
+
+    .block:nth-child(2n) {
+      width: 160px;
+      background-color: blue;
+    }
+
+    .block:nth-child(3n) {
+      width: 260px;
+      background-color: bisque;
+    }
+
+    .block:nth-child(5n) {
+      width: 200px;
+      background-color: yellowgreen;
+    }
+
+    .block:nth-child(6n) {
+      width: 200px;
+      background-color: gold;
+    }
+    .block:nth-child(7n) {
+      width: 140px;
+      background-color: coral;
+    }
+    .block:nth-child(11n) {
+      width: 140px;
+      background-color: coral;
+    }
+    .block:nth-child(12n) {
+      width: 160px;
+      background-color: coral;
+    }
+    .block:nth-child(13n) {
+      width: 210px;
+      background-color: coral;
+    }
+    .block:nth-child(14n) {
+      width: 240px;
+      background-color: coral;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        /* scale: 0.5; */
+        /* transform: translateX(-100px); */
+        clip-path: inset(100% 100% 0 0);
+      }
+
+      to {
+        opacity: 1;
+        /* scale: 1; */
+        /* transform: translateX(0); */
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    /* 动画 */
+    .block {
+      height: 160px;
+      margin-bottom: 160px;
+      margin-right: 40px;
+      border: 2px solid #222;
+      animation: appear linear;
+      /* 动画时间轴属性 */
+      animation-timeline: view();
+      /* 动画范围 */
+      animation-range: entry 0% cover 30%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-container">
+    <h1>Animate On Scroll</h1>
+    <div class="view">
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+      <div class="block"></div>
+    </div>
+  </div>
+</body>
+
+</html>
