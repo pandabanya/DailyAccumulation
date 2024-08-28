@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --border-color: #144fc6;
+      --fill-color: #6ab3f8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #3494e4;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      margin: 10px 0 0;
+    }
+
+    h3 {
+      font-weight: 400;
+      margin: 10px 0;
+    }
+
+    /* 大杯子 */
+    .cup {
+      background-color: #fff;
+      border: 4px solid var(--border-color);
+      color: var(--border-color);
+      /* 底部椭圆 */
+      border-radius: 0 0 40px 40px;
+      height: 330px;
+      width: 150px;
+      margin: 30px 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* 小杯子 */
+    .cup.cup-small {
+      width: 50px;
+      height: 95px;
+      border-radius: 0 0 15px 15px;
+      background-color: rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      font-size: 14px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 5px;
+      transition: 0.3s ease;
+    }
+
+    /* 小杯子的水满的时候 */
+    .cup.cup-small.full {
+      background-color: var(--fill-color);
+      color: #fff;
+    }
+
+    .cups {
+      display: flex;
+      /* 有必要的时候进行拆行 */
+      flex-wrap: wrap;
+      /* 垂直水平居中 */
+      align-items: center;
+      justify-content: center;
+      width: 280px;
+    }
+
+    .remained {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+      /* 等分，方便等分后面的百分比 */
+      flex: 1;
+      transition: 0.3s ease;
+    }
+
+    .remained span {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .remained small {
+      font-size: 12px;
+    }
+
+    /* 喝过水的百分比 */
+    .percentage {
+      background-color: var(--fill-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      height: 330px;
+      font-size: 30px;
+      width: 150px;
+      transition: 0.3s ease;
+      position: absolute;
+      height: 330px;
+      top: 0;
+      left: 50%;
+      border-radius: 40%;
+      background-color: rgba(255, 255, 255, 0.9);
+      transform: translate(-50%, -82%) rotate(0);
+      animation: toRotate 10s linear -5s infinite;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .text {
+      text-align: center;
+      margin: 0 0 5px;
+    }
+    
+    @keyframes toRotate {
+      50% {
+        transform: translate(-50%, -70%) rotate(180deg);
+      }
+
+      100% {
+        transform: translate(-50%, -70%) rotate(360deg);
+      }
+    }
+  </style>
+  <title>Drink Water</title>
+</head>
+
+<body>
+  <h1>Drink Water</h1>
+  <h3>Goal: 2 Liters</h3>
+
+  <!-- 大杯子 -->
+  <div class="cup">
+    <div class="remained" id="remained">
+      <span id="liters"></span>
+      <!-- 剩余空间 -->
+      <small>Remained</small>
+    </div>
+
+    <!-- 喝过的百分比 -->
+    <div class="percentage" id="percentage"></div>
+  </div>
+
+  <p class="text">Select how many glasses of water that you have drank</p>
+
+  <!-- 小杯子 -->
+  <div class="cups">
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+    <div class="cup cup-small">250 ml</div>
+  </div>
+
+  <script>
+    const smallCups = document.querySelectorAll('.cup-small')
+    const listers = document.getElementById('liters')
+    const percentage = document.getElementById('percentage')
+    const remained = document.getElementById('remained')
+
+    // 改变大杯子方法
+    updateBigCup()
+
+    smallCups.forEach((cup, idx) => {
+      // 每个被点击的杯子都被加上高亮方法
+      cup.addEventListener('click', () => highlightCup(idx))
+    })
+
+    function highlightCup(idx) {
+
+      // 如果点击当前已经高亮的杯子，而它的下一个是没有满的，那么需要减少这一杯的高亮
+      // 如果没有这个判断，你点击当前高亮杯子的时候它是没有反应的。
+      if (smallCups[idx].classList.contains('full') && !smallCups[idx].nextElementSibling.classList.contains('full')) {
+        idx--
+      }
+
+      // 遍历当前被点击调用高亮方法的杯子前面的杯子，如果小于当前这个高亮杯子的序号，也要进行高亮
+      // 比如说，我点击的是4号杯子，那么前三个也要被点亮（被加上full的类名）如果不是，就去除
+      smallCups.forEach((cup, idx2) => {
+        if (idx2 <= idx) {
+          cup.classList.add('full')
+        } else {
+          cup.classList.remove('full')
+        }
+      })
+
+      // 小杯子点击事件触发完之后调用大杯子的方法
+      updateBigCup()
+    }
+
+    // 大杯子里面的相关方法
+    function updateBigCup() {
+      const fullCups = document.querySelectorAll('.cup-small.full').length
+      const totalCups = smallCups.length
+
+      if (fullCups === 0) {
+        percentage.style.visibility = 'hidden'
+        percentage.style.height = 0
+      } else {
+        percentage.style.visibility = 'visible'
+        percentage.style.height = `${fullCups / totalCups * 330}px`
+        // 当前喝了的百分比
+        percentage.innerText = `${fullCups / totalCups * 100}%`
+      }
+
+      if (fullCups === totalCups) {
+        // 如果喝完了，就将remained隐藏掉
+        remained.style.visibility = 'hidden'
+        remained.style.height = 0
+      } else {
+        // 没喝完就显示还剩下多少L
+        remained.style.visibility = 'visible'
+        listers.innerText = `${2 - (250 * fullCups / 1000)}L`
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>

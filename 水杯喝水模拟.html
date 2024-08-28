@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .shop_wrap {
+      padding: 50px;
+      /* 设置外层容器的内边距 */
+    }
+
+    .TheCircle {
+      position: relative;
+      width: 500px;
+      /* 设置圆形容器的宽度 */
+      height: 500px;
+      /* 设置圆形容器的高度 */
+      /* border-radius: 50%; */
+      /* 圆形容器的圆角半径 */
+      /* border: 1px solid #38b973; */
+      /* 圆形容器的边框样式 */
+      /* box-shadow: 0 0 0 1px #38b973; */
+      /* 圆形容器的阴影样式 */
+      overflow: hidden;
+      /* 确保容器裁剪水波纹效果 */
+      cursor: pointer;
+      /* 鼠标悬停时显示手型光标 */
+      clip-path: polygon(0% 0%, 100% 0, 80% 100%, 20% 100%);
+    }
+
+    .Water {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #38b973;
+      /* 水波纹的颜色 */
+      /* border-radius: 50%; */
+      overflow: hidden;
+      z-index: 1;
+      /* 确保水波纹在文字之上 */
+    }
+
+    .CenteredText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /* 居中显示文字 */
+      color: #333;
+      /* 文字颜色 */
+      z-index: 2;
+      /* 确保文字在水波纹之上 */
+    }
+
+    .wave1 {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 150%;
+      height: 150%;
+      border-radius: 40%;
+      background-color: rgb(240, 228, 228);
+      /* 水波纹内部颜色 */
+      animation: real 5s linear infinite;
+      /* 实际水波纹的动画效果 */
+    }
+
+
+    .wave2 {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 150%;
+      height: 150%;
+      border-radius: 42%;
+      background-color: rgb(240, 228, 228, 0.2);
+      /* 水波纹外部颜色及透明度 */
+      animation: virtual 7s linear infinite;
+      /* 虚拟水波纹的动画效果 */
+    }
+
+    @keyframes real {
+      0% {
+        /* 初始状态：向上平移50%、左平移65%并旋转0度 */
+        transform: translate(-50%, -65%) rotate(0deg);
+      }
+
+      100% {
+        /* 终止状态：向上平移50%、左平移65%并旋转360度，形成旋转一周的效果 */
+        transform: translate(-50%, -65%) rotate(360deg);
+      }
+    }
+
+    @keyframes virtual {
+      0% {
+        /* 初始状态：向上平移50%、左平移60%，不进行缩放，旋转0度 */
+        transform: translate(-50%, -60%) scale(1) rotate(0deg);
+      }
+
+      100% {
+        /* 终止状态：向上平移50%、左平移60%，进行1.1倍的缩放，旋转360度，
+            形成旋转一周的效果并放大水波纹 */
+        transform: translate(-50%, -60%) scale(1.1) rotate(360deg);
+
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="TheCircle">
+    <div class="Water">
+      <div class="wave1"></div>
+      <span class="CenteredText">上传图片</span>
+      <div class="wave2"></div>
+    </div>
+  </div>
+  <script>
+    // let w = document.querySelector(".Water");
+    // console.dir(w);
+    var style = document.createElement('style');
+    document.head.appendChild(style);
+    sheet = style.sheet;
+    setTimeout(() => {
+      sheet.addRule('.Water::after', ' width: 54.5%;height: 54.5%;');
+      sheet.addRule('.Water::before', ' width: 54.5%;height: 54.5%;');
+    }, 3000)
+    // sheet.insertRule('.box1:before{background-color:red;width: 5px;}');
+  </script>
+</body>
+
+</html>
