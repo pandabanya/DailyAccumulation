@@ -3,9 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>debounce</title>
+  <style>
+    .op{
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid red;
+      border-right: 10px solid transparent;
+    }
+  </style>
 </head>
 <body>
   <button id="btn">提 交</button>
+
+  <div class="op"></div>
 <script>
     let btn = document.getElementById('btn')
     // btn.addEventListener('click', function (){
@@ -47,6 +59,18 @@
   //     }, wait)
   //   }
   // }
+
+
+    // 防抖  频繁触发 只取最后一次
+    function debounce(fn, delay){
+        let timer = 0
+        return function (...args){
+          if(timer){ clearTimeout(timer)}
+          timer = setTimeout(()=>{
+              fn.apply(this, args)
+          },delay)
+        }
+    }
 </script>
 </body>
 </html>

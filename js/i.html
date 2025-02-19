@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document</title>
+</head>
+<body>
+<script>
+    function solution(s) {
+        // 去除前导零并分割整数和小数部分
+        let [integerPart, decimalPart] = BigInt(s).toString().split('.');
+
+        // 处理整数部分
+        let result = '';
+        for (let i = integerPart.length - 1, count = 0; i >= 0; i--, count++) {
+            if (count % 3 === 0 && count !== 0) {
+                result = ',' + result;
+            }
+            result = integerPart[i] + result;
+        }
+
+        // 处理小数部分
+        if (decimalPart) {
+            result += '.' + decimalPart;
+        }
+        console.log(result);
+        return result;
+    }
+    function main() {
+        // console.log(solution("1294512.12412") === '1,294,512.12412');
+        // console.log(solution("0000123456789.99") === '123,456,789.99');
+        // console.log(solution("987654321") === '987,654,321');
+        console.log(solution("77134900601876576") === '77,134,900,601,876,576');
+    }
+
+    main();
+</script>
+</body>
+</html>
