@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+// 什么是原型以及原型链
+function Car(color,owner){
+    this.name = "mi su7"
+    this.lang = 5000
+    this.height= 1400
+    this.color = color
+    this.owner = owner
+    this.say = function(){
+        console.log("hello Mi fans,", this.owner + " has " + this.color + " " + this.name)
+    }
+}
+let tian = new Car("black","tian")
+tian.say()
+console.log(tian, Car.prototype)
+
+</script>
+</body>
+</html>
