@@ -1,69 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    .title{
+    .title {
       background-color: aqua;
       width: 200px;
     }
   </style>
 </head>
-<body>
-<div id="test">
 
-</div>
-<!-- 引入react核心库 -->
-<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<!-- 引入react-dom 用于支持react操作dom - -->
-<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-<!-- 生产环境中不建议使用 将jsx转成js -->
-<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-<script type="text/babel">
+<body>
+  <div id="test">
+
+  </div>
+  <!-- 引入react核心库 -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <!-- 引入react-dom 用于支持react操作dom - -->
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <!-- 生产环境中不建议使用 将jsx转成js -->
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <script type="text/babel">
     // babel 会自动开启严格模式的
     // 类式组件
-    class Weather extends React.Component{
-        constructor() {
-            super();
-            this.state = {
-                isHot: false
-            };
-        }
-
-   }
-
-   // class Weather extends React.Component{
-   //     constructor(props) {
-   //         super(props);
-   //         this.state = {
-   //             isHot: false
-   //         };
-   //         console.log(this)
-   //         this.changeWeather = this.changeWeather.bind(this)
-   //     }
-   //     // render调用几次？ 1+n次  1是初始化那次，n次是点击事件触发的
-   //     render(){
-   //         return (
-   //             <div>
-   //                 <h2 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热':'寒冷'}</h2>
-   //             </div>
-   //         )
-   //     }
-   //     changeWeather(){
-   //         // changeWeather放在哪里?-weather的原型对象上，供实例使用
-   //         // 由于changeweather是作为onclick的回调，所以不是通过实例调用的，是直接调用
-   //         // 类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
-   //         console.log(this)
-   //         // state 不可直接更改，要借助内置的API setState去更改
-   //         // 更新操作是进行合并 （同名合并）
-   //         this.setState({
-   //             isHot: !this.state.isHot
-   //         })
-   //     }
-   // }
-   //  ReactDOM.render(<Weather/>, document.getElementById('test'))
-</script>
+    class Weather extends React.Component {
+      constructor() {// 构造器里的this必是
+        super();
+        this.state = {
+          isHot: false
+        };
+        console.log(this)
+      }
+      render(){
+        return  (
+          <h1 onClick={this.changeWeather}>今天天气很炎热</h1>
+        )
+      }
+      changeWeather(){ // 属于自定义的方法
+        // changeWeather 放在哪 -- Weather的原型上的，
+        // 只有通过Weather实例也就是new Weather 得到w调用changeWeather时候
+        // ,里面的this才是Weather实例对象
+        console.log(this);
+      }
+    }
+    ReactDOM.render(<Weather/>, document.getElementById('test'))
+    // class Weather extends React.Component{
+    //     constructor(props) {
+    //         super(props);
+    //         this.state = {
+    //             isHot: false
+    //         };
+    //         console.log(this)
+    //         this.changeWeather = this.changeWeather.bind(this)
+    //     }
+    //     // render调用几次？ 1+n次  1是初始化那次，n次是点击事件触发的
+    //     render(){
+    //         return (
+    //             <div>
+    //                 <h2 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热':'寒冷'}</h2>
+    //             </div>
+    //         )
+    //     }
+    //     changeWeather(){
+    //         // changeWeather放在哪里?-weather的原型对象上，供实例使用
+    //         // 由于changeweather是作为onclick的回调，所以不是通过实例调用的，是直接调用
+    //         // 类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
+    //         console.log(this)
+    //         // state 不可直接更改，要借助内置的API setState去更改
+    //         // 更新操作是进行合并 （同名合并）
+    //         this.setState({
+    //             isHot: !this.state.isHot
+    //         })
+    //     }
+    // }
+    //  ReactDOM.render(<Weather/>, document.getElementById('test'))
+  </script>
 </body>
+
 </html>
