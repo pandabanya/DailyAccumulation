@@ -22,21 +22,28 @@
 <!-- 生产环境中不建议使用 将jsx转成js -->
 <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 <script type="text/babel">
-    // 类式组件
-    class MyComponent extends React.Component{
-        // render 必须有
-        render(){
-            return (
-                <div>
-                    <h2>我是类组件</h2>
-                </div>
-            )
-        }
+  class Weather extends React.Component{
+    state = {isHot: false, wind: '微风'}
+      render(){
+          return (
+              <div>
+                  <h2 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热':'寒冷'}</h2>
+              </div>
+          )
+      }
+    // 自定义的方法 要用赋值语句
+    changeWeather = ()=>{
+       this.setState({
+           isHot: !this.state.isHot
+       })
     }
-
-
-    console.log(MyComponent)
-    ReactDOM.render(<MyComponent/>, document.getElementById('test'))
+  }
+  ReactDOM.render(<Weather/>, document.getElementById('test'))
+  // class Car{
+  //   a = 1
+  // }
+  // const c = new Car()
+  // console.log(c)
 </script>
 </body>
 </html>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    .title{
+    .title {
       background-color: aqua;
       width: 200px;
     }
@@ -22,21 +22,23 @@
 <!-- 生产环境中不建议使用 将jsx转成js -->
 <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 <script type="text/babel">
-    // 类式组件
-    class MyComponent extends React.Component{
-        // render 必须有
-        render(){
+    class Person extends React.Component {
+        render() {
             return (
                 <div>
-                    <h2>我是类组件</h2>
+                    <ul>
+                        <li>姓名：{this.props.info.name}</li>
+                        <li>性别：</li>
+                        <li>年龄：</li>
+                    </ul>
                 </div>
             )
         }
     }
 
-
-    console.log(MyComponent)
-    ReactDOM.render(<MyComponent/>, document.getElementById('test'))
+    ReactDOM.render(<Person info={{name: '张三',
+        age: 18,
+        sex: '男'}}/>, document.getElementById('test'))
 </script>
 </body>
 </html>
