@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  class Person {
+    constructor(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    // 一般方法 放在了类的prototype上
+    speak() {
+      console.log(this.name + ':' + this.age);
+    }
+  }
+  const p1 = new Person('张三', 18);
+  console.log(p1)
+  // 创建一个student 类
+  class Student extends Person {
+      constructor(name,age,grade) {
+          // super()调用父类的构造函数，必须写，否则报错
+          super();
+          this.grade = grade
+      }
+      // 重写父类方法
+      speak() {
+          // super.speak();
+          console.log(this.name + ':' + this.age + ':' + this.grade)
+      }
+      study(){
+          console.log('study')
+      }
+  }
+
+</script>
+</body>
+</html>
