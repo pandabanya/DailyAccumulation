@@ -6,6 +6,7 @@
 </head>
 <body>
 <script>
+  // 类中的所定义的方法都自动加上了严格模式
   class Person {
     constructor(name, age) {
       this.name = name;
@@ -19,6 +20,9 @@
   const p1 = new Person('张三', 18);
   console.log(p1)
   p1.speak() // 通过实例调用
+  const x = p1.speak
+  console.dir(x)
+  x()
 </script>
 </body>
 </html>

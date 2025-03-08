@@ -29,13 +29,12 @@
     class Weather extends React.Component {
       constructor() {// 构造器里的this必是
         super();
-        this.state = {
-          isHot: false
-        };
+        this.state = {isHot: false};
         console.log(this)
       }
       render(){
         return  (
+          // 当前这里仅仅是通过this找到了原型上的cw方法
           <h1 onClick={this.changeWeather}>今天天气很炎热</h1>
         )
       }
@@ -43,6 +42,8 @@
         // changeWeather 放在哪 -- Weather的原型上的，
         // 只有通过Weather实例也就是new Weather 得到w调用changeWeather时候
         // ,里面的this才是Weather实例对象
+        // 所以不是通过实例调用的，是等于onClick拿到这个方法直接调用，
+        // 那么又因为类中默认开启了局部严格模式，所以这里的this目前是undefined
         console.log(this);
       }
     }

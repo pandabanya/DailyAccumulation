@@ -12,8 +12,13 @@
         console.log(this);
 			}
 			class Car{
+				a = 1
+				getCarColor = ()=>{
+					console.log(this)
+				}
 				constructor(){
-					this.getPrice = this.getPrice.bind(this)
+					this.wheel = 4
+					// this.getPrice = this.getPrice.bind(this)
 				}
 				getPrice(){ //方法都是放在当前类的原型上面的
 					console.log('获取价格',this)

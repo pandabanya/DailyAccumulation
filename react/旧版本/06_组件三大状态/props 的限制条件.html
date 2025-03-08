@@ -21,6 +21,8 @@
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 <!-- 生产环境中不建议使用 将jsx转成js -->
 <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<!--用于对组件标签属性进行限制  PropTypes-->
+<script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
 <script type="text/babel">
     class Person extends React.Component {
         render() {
@@ -35,10 +37,20 @@
             )
         }
     }
-    
-    const p = {name: '张三',age: 18,sex: '男'}
+    //propTypes 必须是这个属性
+    // React.PropTypes.string.isRequired // 字符串类型  15.xx版本
+    Person.propTypes = {
+        name: PropTypes.string.isRequired,
+        sex: PropTypes.string,
+        age: PropTypes.number
+    }
+    // 指定默认值
+    Person.defaultProps = {
+        sex: '男',
+        age: 18
+    }
     // { ...p }  {}是用来把表达式括起来，...p在babel和react的时候才生效
-    ReactDOM.render(<Person {...p}/>, document.getElementById('test'))
+    ReactDOM.render(<Person name='张三' {...p}/>, document.getElementById('test'))
 </script>
 </body>
 </html>
