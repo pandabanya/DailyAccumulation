@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+</head>
+<body>
+<div id="test">
+
+</div>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<!-- 引入react-dom 用于支持react操作dom - -->
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 将jsx转成js -->
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<script type="text/babel">
+	class Login extends React.Component {
+		state = {
+			username:'',
+			password:''
+		}
+		/**
+		 * 函数调用继续返回函数的方式 函数柯里化
+		 *
+		 */
+		// 保存表单数据到状态中  高阶函数
+		/**
+		 * 高阶函数 符合一下2个中的其中一个就可以
+		 * 1. A函数接收的参数是一个函数，那么A就是一个高阶函数
+		 * 2. A函数返回的是一个函数，那么A就是一个高阶函数
+		 * 常见的有 promise setTimeout setInterval arr.map
+		 */
+		saveFormData = (dataType)=>{
+			/**
+			 * 如果这里不是返回一个函数的话，等于说onChange 调用的是this.saveFormData('username') 的返回值
+			 * 那就不会因为输入而改变了 ，这里返回一个函数给onChange 那么带来了事件对象的参数
+			 * 必须拿一个函数作为事件的回调
+			 */
+			return (event)=>{
+				console.log(dataType,event.target.value)
+				this.setState({
+					[dataType]:event.target.value
+				})
+			}
+		}
+		handlerSubmit = (event)=>{
+			event.preventDefault();
+		}
+		render(){
+			return (
+				<div>
+					<form onSubmit={this.handlerSubmit}>
+						用户名： <input onChange={this.saveFormData('username')} type="text" name="username"/>
+						密码： <input onChange={this.saveFormData('password')} type="password" name="password"/>
+						<button>登录</button>
+					</form>
+				</div>
+			)
+		}
+	}
+	ReactDOM.render(<Login/>, document.getElementById('test'));
+</script>
+</body>
+</html>

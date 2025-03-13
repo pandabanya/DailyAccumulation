@@ -25,6 +25,16 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
 <script type="text/babel">
     class Person extends React.Component {
+        constructor(props) {
+            super(props);
+            console.log(props);
+        }
+        // 这是对标签属性进行的限制
+        static propTypes = {
+            name: PropTypes.string.isRequired,
+            sex: PropTypes.string,
+            age: PropTypes.number
+        }
         render() {
             return (
                 <div>

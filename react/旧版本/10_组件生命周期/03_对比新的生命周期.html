@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+</head>
+<body>
+<div id="test"></div>
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+	class Count extends React.Component {
+		constructor(props) {
+			super(props);
+			this.state = {
+				count: 0
+			}
+		}
+		
+		addOne = ()=>{
+			this.setState({
+				count: this.state.count + 1
+			})
+		}
+		// 18 版本中，componentWillMount方法被废弃了 必须要加上UNSAFE_
+		UNSAFE_componentWillMount(){
+			console.log('UNSAFE_componentWillMount')
+		}
+		
+		render(){
+			return (
+				<div>
+					<p>当前的求和值为：{this.state.count}</p>
+					<button onClick={this.addOne}>点我+1</button>
+				</div>
+			)
+		}
+	}
+	ReactDOM.render(<Count/>,document.getElementById('test'))
+</script>
+</body>
+</html>

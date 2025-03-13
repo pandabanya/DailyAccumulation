@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+</head>
+<body>
+<div id="test">
+
+</div>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<!-- 引入react-dom 用于支持react操作dom - -->
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 将jsx转成js -->
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<script type="text/babel">
+class Life extends React.Component {
+	state = {
+		opacity : 1
+	}
+	death = ()=>{
+		
+		// 卸载组件
+		ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+	}
+	// 在一些关键的时间点，React会自动调用一些方法
+	//组件挂载完毕之后
+	componentDidMount(){
+		// 组件挂载完毕
+		this.timer = setInterval(()=>{
+			let {opacity} = this.state
+			opacity -= 0.1
+			if(opacity < 0){
+				opacity = 1
+			}
+			this.setState({
+				opacity
+			})
+		},200)
+	}
+	componentWillUnmount(){
+		// 组件即将卸载
+		// alert('组件即将卸载')
+		clearInterval(this.timer)
+	}
+	componentWillUpdate(){
+		// 组件即将更新
+		// alert('组件即将更新')
+	}
+	componentDidUpdate(){
+		// 组件更新完毕
+		// alert('组件更新完毕')
+	}
+	
+	// 初始化渲染 状态更新之后
+	render(){
+		return (
+			<div>
+				<h2 style={{opacity:this.state.opacity}}>React 学不会怎么办</h2>
+				<button onClick={this.death}>不活了（death是一个事件的回调再用）</button>
+				
+			</div>
+		)
+	}
+}
+console.log(new Life())
+ReactDOM.render(<Life/>, document.getElementById('test'))
+</script>
+</body>
+</html>
