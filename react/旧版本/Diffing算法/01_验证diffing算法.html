@@ -1,1 +1,55 @@
-html
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+</head>
+<body>
+<div id="test"></div>
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/babel">
+	/**
+	 * 1) React/vue中的 key 有什么作用？
+	 * 2） 为什么遍历列表的时候 key最好不要用index
+	 *
+	 *
+	 * 1. key的作用：
+	 *  1.1 key 是虚拟dom的唯一标识
+	 *  1.2 当状态也就是state 数据发生变化的时候，react会根据【新数据】生成【新的虚拟dom】,
+	 *  随后，react会生成【新的真实dom】，然后进行【diff算法】，比较【新旧虚拟dom】，
+	 *  a. 如果【新旧虚拟dom】完全一样，则直接复用【老真实dom】，不会更新【真实dom】
+	 *  b. 如果【新旧虚拟dom】不一样，则生成【新真实dom】，然后进行【diff算法】，比较【新旧真实dom】，
+	 *  c. 如果【新旧真实dom】不一样，则更新【真实dom】
+	 *
+	 * 2. 为什么遍历列表的时候 key最好不要用index
+	 *  2.1 如果key使用index，则当数据发生变化的时候，react会根据【新数据】生成【新的虚拟dom】,
+	 */
+	class Time extends React.Component {
+		state = {
+			date: new Date()
+		}
+		componentDidMount(){
+			console.log('componentDidMount')
+			setInterval(()=>{
+				this.setState({
+					date: new Date()
+				})
+			},1000)
+		}
+		render(){
+			return (
+				<div>
+					<h1>hello</h1>
+					<input type="text"/>
+					<span>现在是：{this.state.date.toTimeString()}</span>
+				</div>
+			)
+		}
+	}
+	ReactDOM.render(<Time/>,document.getElementById('test'))
+</script>
+</body>
+</html>
